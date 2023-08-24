@@ -2,30 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Editor\SaveRequest;
-use App\Repository\Editor\EditorInterface;
+use App\Repository\ModelInterface;
+use App\Usables\ReadWrite;
 use Exception;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    private $editorReposiotry;
-    public function __construct(EditorInterface $editorInterface)
+    use ReadWrite;
+    private $listing;
+    public function __construct(ModelInterface $modelInterface)
     {
-        $this->editorReposiotry = $editorInterface;
+        $this->listing = $modelInterface;
     }
     public function index()
     {
         return inertia('Admin/Dashboard');
     }
-    public function saveEditor(SaveRequest $request)
+    public function getList()
     {
         try {
-            $params = $request->only('content');
-            $details = $this->editorReposiotry->Save($params);
-            return response()->json(['message' => 'Content saved successfully', 'details' => $details], 200);
+            $details = $this->listing->getDetails();
         } catch (Exception $ex) {
-            return response()->json(['error' => 'Something went wrong'], 500);
+            $this->WriteGeneralException($ex);
+            return response()->json(['error' => 'Something went wrong. Please try again.'], 500);
         }
     }
 }

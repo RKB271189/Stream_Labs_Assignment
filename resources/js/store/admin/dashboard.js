@@ -5,15 +5,7 @@ const getters = {
 
 }
 const actions = {
-    async SOME_SERVER_ACTION({ commit }) {
-        try {
-            let res = await axios.post('/testing-token');
-            if (res.status == 200) {
-
-            }
-        } catch (error) {
-        }
-    }
+   
 }
 const mutations = {
 
