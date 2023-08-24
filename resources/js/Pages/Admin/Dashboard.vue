@@ -13,8 +13,8 @@
               :countTitle="'User'"
               :iconMain="'mdi-account-star'"
               :moreInfoBackColor="'#007bff'"
-              :navigateURL="'login'"
-              :enableAction="true"
+              :navigateURL="''"
+              :enableAction="false"
             ></count-box>
           </v-col>
           <v-col md="3">
@@ -25,8 +25,8 @@
               :countTitle="'Orders'"
               :iconMain="'mdi-basket-plus'"
               :moreInfoBackColor="'#fd7e14'"
-              :navigateURL="'login'"
-              :enableAction="true"
+              :navigateURL="''"
+              :enableAction="false"
             ></count-box>
           </v-col>
         </v-row>
@@ -34,22 +34,7 @@
           <v-col cols="12" md="12">
             <v-card>
               <v-card-title class="alert-warning">
-                <span class="headline">Some Title</span>
-                <v-dialog v-model="dialog" width="60%">
-                  <template v-slot:activator="{ props }">
-                    <v-btn
-                      class="flex-grow-1"
-                      height="48"
-                      variant="tonal"
-                      color="primary"
-                      v-bind="props"
-                      style="float: right"
-                    >
-                      <v-icon class="mr-1">mdi-alert-outline</v-icon>
-                      Open Dialog
-                    </v-btn>
-                  </template>                
-                </v-dialog>
+                <span class="headline">Some Title</span>               
               </v-card-title>
             </v-card>
           </v-col>

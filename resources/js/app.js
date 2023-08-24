@@ -11,10 +11,6 @@ import 'vuetify/styles'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import '@mdi/font/css/materialdesignicons.css'
-import { QuillEditor, Quill } from '@vueup/vue-quill'
-import Mention from 'quill-mention'
-import 'quill-mention/dist/quill.mention.css'
-Quill.register("modules/mentions", Mention)
 import '@vueup/vue-quill/dist/vue-quill.snow.css'
 import store from './store'
 import setupAxiosInterceptors from './service/axios-interceptor'
@@ -58,8 +54,7 @@ createInertiaApp({
         const app = createApp({ render: () => h(App, props) });
         app.use(plugin);
         app.use(vuetify);
-        app.use(store);
-        app.component('QuillEditor', QuillEditor)
+        app.use(store);     
         app.mount(el);
         setupAxiosInterceptors(store);
     },
