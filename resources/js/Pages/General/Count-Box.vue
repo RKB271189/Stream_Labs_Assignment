@@ -53,7 +53,7 @@ export default {
       required: true,
     },
     countNumber: {
-      type: String,
+      type: Number,
       required: true,
     },
     countTitle: {
