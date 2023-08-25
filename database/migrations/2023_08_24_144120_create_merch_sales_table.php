@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('merch_sales', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name');
             $table->string('item_name');
             $table->decimal('amount');
             $table->decimal('price');

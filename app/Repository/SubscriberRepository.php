@@ -4,12 +4,13 @@ namespace App\Repository;
 
 use App\Models\Subscriber;
 
-class SubscriberRepository implements ServiceInterface
+class SubscriberRepository extends CommonRepository implements ServiceInterface
 {
     private $table;
     public function __construct(Subscriber $subscriber)
     {
         $this->table = $subscriber;
+        parent::__construct($this->table);
     }
     public function getTotal(string $startDate, string $endDate)
     {

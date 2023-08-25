@@ -4,12 +4,13 @@ namespace App\Repository;
 
 use App\Models\MerchSale;
 
-class MerchsaleRepository implements ServiceInterface
+class MerchsaleRepository extends CommonRepository implements ServiceInterface
 {
     private $table;
     public function __construct(MerchSale $merchSale)
     {
         $this->table = $merchSale;
+        parent::__construct($this->table);
     }
     public function getTotal(string $startDate, string $endDate)
     {

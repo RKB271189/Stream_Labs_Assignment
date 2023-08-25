@@ -19,6 +19,7 @@ class MerchSaleFactory extends Factory
     public function definition(): array
     {
         return [
+            'name' => $this->faker->name,
             'item_name' => $this->faker->word(),
             'amount' => floatval(rand(10, 10000) / 100),
             'price' => floatval(rand(10, 1500) / 100),

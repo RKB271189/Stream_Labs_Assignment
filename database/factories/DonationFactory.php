@@ -21,6 +21,7 @@ class DonationFactory extends Factory
     {
         $currency = ['CAD', 'USD', 'INR', 'EUR', 'GBP', 'AUD', 'JPY'];
         return [
+            'name' => $this->faker->name,
             'amount' => floatval(rand(10, 10000) / 100),
             'currency' => $currency[array_rand($currency)],
             'donation_message' => $this->faker->sentence(),

@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Repository\DonationRepository;
 use App\Repository\FollowerRepository;
 use App\Repository\MerchsaleRepository;
-use App\Repository\ModelInterface;
 use App\Repository\SubscriberRepository;
+use App\Usables\Helper;
 use App\Usables\ReadWrite;
 use Carbon\Carbon;
 use Exception;
@@ -15,20 +15,19 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     use ReadWrite;
+    use Helper;
     private $listing;
     private $follower;
     private $subscriber;
     private $donation;
     private $merchsale;
-    private $perPage = 100;
+    private $perPage = 5;
     public function __construct(
-        ModelInterface $modelInterface,
         FollowerRepository $followerRepository,
         SubscriberRepository $subscriberRepository,
         DonationRepository $donationRepository,
         MerchsaleRepository $merchsaleRepository
     ) {
-        $this->listing = $modelInterface;
         $this->follower = $followerRepository;
         $this->subscriber = $subscriberRepository;
         $this->donation = $donationRepository;
@@ -47,7 +46,7 @@ class DashboardController extends Controller
         foreach ($subscriberDetails as $val) {
             $subscriberAmount = $val->amount;
         }
-        $totalRevenue = $donationAmount + $merchsaleAmount + $subscriberAmount;
+        $totalRevenue = number_format($donationAmount + $merchsaleAmount + $subscriberAmount, 2, '.', '');
         $topItems = $this->merchsale->getTopItems(3, $startDate, $endDate);
         $details = [
             'follower' => $noOfFollowers,
@@ -56,12 +55,16 @@ class DashboardController extends Controller
         ];
         return inertia('Admin/Dashboard', $details);
     }
-    public function getList(Request $request)
+    public function getActivity(Request $request)
     {
         try {
             $page = $request->input('page');
-            $perPage = 100;
-            $details = $this->listing->getDetails();
+            $followerDetails = $this->follower->getDetails($page, $this->perPage);
+            $subscriberDetails = $this->subscriber->getDetails($page, $this->perPage);
+            $donationDetails = $this->donation->getDetails($page, $this->perPage);
+            $merchsaleDetails = $this->merchsale->getDetails($page, $this->perPage);
+            $events = $this->formatToSentence($followerDetails, $subscriberDetails, $donationDetails, $merchsaleDetails);
+            return response()->json(['message' => 'Details fetched successfully', 'events' => $events], 200);
         } catch (Exception $ex) {
             $this->WriteGeneralException($ex);
             return response()->json(['error' => 'Something went wrong. Please try again.'], 500);

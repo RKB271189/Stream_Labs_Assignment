@@ -9,6 +9,7 @@ class MerchSale extends Model
 {
     use HasFactory;
     protected $fillable=[
+        'name',
         'item_name',
         'amount',
         'price'
