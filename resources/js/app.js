@@ -10,8 +10,9 @@ import { createVuetify } from 'vuetify'
 import 'vuetify/styles'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
+import InfiniteLoading from "v3-infinite-loading";
+import "v3-infinite-loading/lib/style.css";
 import '@mdi/font/css/materialdesignicons.css'
-import '@vueup/vue-quill/dist/vue-quill.snow.css'
 import store from './store'
 import setupAxiosInterceptors from './service/axios-interceptor'
 const customTheme = {
@@ -29,6 +30,7 @@ const customTheme = {
         warning: '#FB8C00',
     },
 }
+
 const vuetify = createVuetify({
     theme: {
         defaultTheme: 'customTheme',
@@ -37,7 +39,7 @@ const vuetify = createVuetify({
         },
     },
     directives,
-    components,
+    components
 })
 createInertiaApp({
     progress: {
@@ -54,7 +56,8 @@ createInertiaApp({
         const app = createApp({ render: () => h(App, props) });
         app.use(plugin);
         app.use(vuetify);
-        app.use(store);     
+        app.use(store);
+        app.component("infinite-loading", InfiniteLoading);
         app.mount(el);
         setupAxiosInterceptors(store);
     },

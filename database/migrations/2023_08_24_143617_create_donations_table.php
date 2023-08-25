@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('donations', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name');
             $table->decimal('amount');
             $table->string('currency');
             $table->text('donation_message');

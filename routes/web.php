@@ -18,3 +18,4 @@ Route::get('/login', function () {
     return inertia('Auth/Login');
 });
 Route::get('/', [DashboardController::class, 'index'])->name('admin-dashboard');
+Route::get('/get-activity', [DashboardController::class, 'getActivity']);

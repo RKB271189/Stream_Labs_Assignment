@@ -44,12 +44,31 @@
             </v-card>
           </v-col>
         </v-row>
-        <v-row>
+        <v-row>      
           <v-col cols="12" md="12">
             <v-card>
               <v-card-title class="alert-warning">
                 <span class="headline">Your Activity</span>
               </v-card-title>
+              <div
+                id="activity"
+                style="max-height: 400px; overflow-y: scroll"
+              >
+                <template v-for="(item, index) in eventList" :key="item">
+                  <div
+                    :class="[
+                      'pa-2',
+                      index % 2 === 0 ? 'bg-grey-lighten-2' : '',
+                    ]"
+                  >
+                    <p v-html="item"></p>
+                  </div>
+                </template>
+                <infinite-loading
+                  target="#activity"
+                  @infinite="getActivity"
+                ></infinite-loading>
+              </div>
             </v-card>
           </v-col>
         </v-row>
@@ -62,7 +81,8 @@
 import Header from "./Layout/Header.vue";
 import Menu from "./Layout/Menu.vue";
 import CountBox from "../General/Count-Box.vue";
-import { mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   props: {
     follower: {
@@ -79,6 +99,8 @@ export default {
     return {
       dialog: false,
       loading: false,
+      currentPage: 1,
+      totalPage: null,
       pageName: "Dashboard",
     };
   },
@@ -87,17 +109,23 @@ export default {
     Menu,
     CountBox,
   },
+  computed: {
+    ...mapGetters("Dashboard", ["eventList"]),
+  },
+  mounted() {
+    this.getActivity();
+  },
   methods: {
-    ...mapActions("Dashboard", ["SOME_SERVER_ACTION"]),
-    async someAction() {
+    ...mapActions("Dashboard", ["GET_EVENT_ACTIVITY"]),
+    async getActivity() {
+      this.currentPage = Math.ceil(this.eventList.length / 100) + 1;
+      let params = {
+        page: this.currentPage,
+      };
       this.loading = true;
-      await this.SOME_SERVER_ACTION();
+      await this.GET_EVENT_ACTIVITY({ params: params });
       this.loading = false;
     },
-    closeDialog() {
-      this.dialog = false;
-    },
-    saveDialog() {},
   },
 };
 </script>
