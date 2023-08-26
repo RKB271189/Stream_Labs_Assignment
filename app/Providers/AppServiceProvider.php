@@ -10,6 +10,7 @@ use App\Repository\Product\ProductInterface;
 use App\Repository\Product\ProductRepository;
 use App\Repository\Profile\ProfileInterface;
 use App\Repository\Profile\ProfileRepository;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,6 +28,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        URL::forceScheme('https');
     }
 }

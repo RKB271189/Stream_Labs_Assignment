@@ -4,7 +4,7 @@
       <h4>Stream Labs</h4>
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-btn text color="white" @click="logout">Logout</v-btn>
+    <!-- <v-btn text color="white" @click="logout">Logout</v-btn> -->
   </v-app-bar>
 </template>
 

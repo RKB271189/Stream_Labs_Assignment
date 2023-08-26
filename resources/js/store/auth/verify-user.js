@@ -10,10 +10,10 @@ const getters = {
     passportToken: state => state.passportToken,
 }
 const actions = {
-    async VERIFY_USER_CREDENTIALS({ commit }, params) {
+    async VALIDATE_PROVIDER_USER({ commit }, params) {
         commit('RESET_RESPONSE_FLAG')
         try {
-            let res = await axios.post('/verify-user', params)
+            let res = await axios.post('/provider/callback', params)
             if (res.status === 200) {
                 commit('SET_PASSPORT_TOKEN', res.data.token)
                 commit('SET_SUCCESS', res.data.message)
