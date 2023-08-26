@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,8 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/login', function () {
-    return inertia('Auth/Login');
+Route::get('/login', [AuthController::class, 'index'])->name('login');
+Route::get('/login/redirect', [AuthController::class, 'providerRedirect']);
+Route::post('/provider/callback', [AuthController::class, 'providerCallback']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/', [DashboardController::class, 'index']);
+    Route::get('/get-activity', [DashboardController::class, 'getActivity']);
 });
-Route::get('/', [DashboardController::class, 'index'])->name('admin-dashboard');
-Route::get('/get-activity', [DashboardController::class, 'getActivity']);

@@ -21,7 +21,7 @@ class DashboardController extends Controller
     private $subscriber;
     private $donation;
     private $merchsale;
-    private $perPage = 5;
+    private $perPage = 100;
     public function __construct(
         FollowerRepository $followerRepository,
         SubscriberRepository $subscriberRepository,
