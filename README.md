@@ -13,5 +13,5 @@
 #### 3> run command : npm install
 #### 4> php artisan migrate
 #### 5> php artisan db:seed
-
+#### 6> please use your google console client id and redirect url
 ### This should work starting with the stream labs ###
